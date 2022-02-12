@@ -74,17 +74,17 @@ function makeActiveSection() {
   }
 }
 // event listener to the dom
-document.addEventListener("scroll", makeActiveSection);
+window.addEventListener("scroll", makeActiveSection);
 
 
 //Scroll to section when Navbar link is clicked
 
-const sectionLinks = document.querySelectorAll('section').getAttribute("href");
+const sectionLinks = document.querySelectorAll('a[href^="#"]');
 for (sectionLink of sectionLinks) {
-  sectionLink.addEventListener("click", e => {
+  sectionLink.addEventListener("click", function (e) {
 
     e.preventDefault();
-    sectionLink.scrollIntoView({
+    document.querySelector(this.getAttribute("href")).scrollIntoView({
       behavior: "smooth"
     });
   });
