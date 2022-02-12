@@ -34,7 +34,6 @@ const header = document.querySelector(".page__header");
 // creating navbar links from sections id names we got from the querySelectorAll
 function createNavbar() {
   let navList = "";
-  const sections = document.querySelectorAll("section");
   for (section of sections) {
     // add html tags for list items
     // dataset.nav returns nav: section 1
@@ -77,18 +76,19 @@ function makeActiveSection() {
 // event listener to the dom
 document.addEventListener("scroll", makeActiveSection);
 
-navList = addEventListener("click", (e) => {
-  e.preventDefault(); // prevents default event from bubbling
 
-  if (e.target.dataset.nav) {
-    document
-      .getElementById(`${e.target.dataset.nav}`)
-      .scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
-    setTimeout(() => {
-      location.hash = `${e.target.dataset.nav}`;
-    }, 200); // smooth the scroll position
-  }
-});
+//Scroll to section when Navbar link is clicked
+
+const sectionLinks = document.querySelectorAll('section').getAttribute("href");
+for (sectionLink of sectionLinks) {
+  sectionLink.addEventListener("click", e => {
+
+    e.preventDefault();
+    sectionLink.scrollIntoView({
+      behavior: "smooth"
+    });
+  });
+};
 
 /**
  * disappear the header and appear again when scrolling.
