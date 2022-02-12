@@ -23,7 +23,6 @@
  *
  */
 const sections = document.querySelectorAll("section");
-const navbarList = document.getElementById("navbar__list");
 const header = document.querySelector(".page__header");
 
 /**
@@ -31,50 +30,43 @@ const header = document.querySelector(".page__header");
  * Start Helper Functions
  *
  */
-// creating navbar links from sections id names we got from the querySelectorAll
-function createNavbar() {
-  let navList = "";
-  for (section of sections) {
-    // add html tags for list items
-    // dataset.nav returns nav: section 1
-    navList += `<li> <a class="nav__link menu__link" href="#${section.id}" data-nav="${section.id}" >
-          ${section.dataset.nav}</a></li>`;
+// Building the Navigation content
+
+const buildNavBarLinks = () => {
+  for (const section of sections) {
+
+    const ul = document.querySelector('ul#navbar__list');
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+    a.textContent = section.getAttribute('data-nav');
+    a.setAttribute('class', 'menu__link');
+
+    a.href = `#${section.id}`;
+    li.appendChild(a);
+    ul.appendChild(li);
   }
-  // add inner html to created navbar links
-  navbarList.innerHTML = navList;
-}
-createNavbar();
 
-// Add class 'active' to section when near top of viewport
+};
+//invoking the buildNavBarLinks function
+buildNavBarLinks();
 
-function addActiveClass(section) {
-  // get the id from the section
+
+// Add class 'active' to section when the viewport
+
+function toggleActiveClass(section) {
   const id = section.getAttribute("id");
-  document.querySelector(`#${id}`).classList.add("your-active-class");
-}
-
-//Removing the active class from the section
-function removeActiveClass(section) {
-  const id = section.getAttribute("id");
-  document.querySelector(`#${id}`).classList.remove("your-active-class");
+  document.querySelector(`#${id}`).classList.toggle("active");
 }
 // calculating when the section is active
-function makeActiveSection() {
+function activeSection() {
   for (section of sections) {
-    // https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect
-    // DOMRect object providing information about the size of an element and its position relative to the viewport.
-    // viewport : A viewport represents a polygonal (normally rectangular) area in computer graphics that is currently being viewed.
-
     let sectionViewPort = section.getBoundingClientRect();
-    if (sectionViewPort.top <= 100 && sectionViewPort.bottom >= 100) {
-      addActiveClass(section);
-    } else {
-      removeActiveClass(section);
-    }
+    (sectionViewPort.top <= 150 && sectionViewPort.bottom >= 150) && (!section.classList.has("active")) ? toggleActiveClass(section)
+      : toggleActiveClass(section)
   }
 }
 // event listener to the dom
-window.addEventListener("scroll", makeActiveSection);
+window.addEventListener("scroll", activeSection);
 
 
 //Scroll to section when Navbar link is clicked
@@ -90,18 +82,7 @@ for (sectionLink of sectionLinks) {
   });
 };
 
-/**
- * disappear the header and appear again when scrolling.
- */
 
-document.onscroll = () => {
-  let isScrolling;
-  header.style.display = "block";
-  clearTimeout(isScrolling);
-  isScrolling = setTimeout(() => {
-    header.style.display = "none";
-  }, 5000);
-};
 
 
 // implemented collapsible section click event
