@@ -61,7 +61,7 @@ function toggleActiveClass(section) {
 function activeSection() {
   for (section of sections) {
     let sectionViewPort = section.getBoundingClientRect();
-    (sectionViewPort.top <= 100 && sectionViewPort.bottom >= 100) && (!section.classList.has("active")) ? toggleActiveClass(section)
+    (sectionViewPort.top <= 300 && sectionViewPort.bottom >= 300) && (!section.classList.contains("active")) ? toggleActiveClass(section)
       : toggleActiveClass(section)
   }
 }
