@@ -51,7 +51,7 @@ const buildNavBarLinks = () => {
 buildNavBarLinks();
 
 
-// Add class 'active' to section when the viewport
+// toggle class 'active' to section when the viewport
 
 function toggleActiveClass(section) {
   const id = section.getAttribute("id");
@@ -85,22 +85,7 @@ for (sectionLink of sectionLinks) {
 
 
 
-// implemented collapsible section click event
-document.querySelectorAll(".accordion__button").forEach((button) => {
-  button.addEventListener("click", () => {
-    // storing the collapsible content after the button is clicked
-    const accordionContent = button.nextElementSibling;
-    button.classList.toggle("accordion__button--active");
-    if (button.classList.contains("accordion__button--active")) {
-      // sets the accordion content to the default maxHeight
-      accordionContent.style.maxHeight =
-        accordionContent.scrollHeight + "px";
-    } else {
-      //hide the accordion content
-      accordionContent.style.maxHeight = 0;
-    }
-  });
-});
+
 /**
  * End Helper Functions
  * Begin Main Functions
