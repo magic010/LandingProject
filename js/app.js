@@ -63,6 +63,7 @@ function activeSection () {
     // adding the active class 'active' to section when near the viewport
     !section.classList.contains('active')
       ? toggleActiveClass(section)
+      // else remove the active class 'active'
       : toggleActiveClass(section)
   }
 }
