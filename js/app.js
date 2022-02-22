@@ -22,8 +22,7 @@
  * Define Global Variables
  *
  */
-const sections = document.querySelectorAll("section");
-const header = document.querySelector(".page__header");
+const sections = document.querySelectorAll('section')
 
 /**
  * End Global Variables
@@ -34,57 +33,55 @@ const header = document.querySelector(".page__header");
 
 const buildNavBarLinks = () => {
   for (const section of sections) {
+    const ul = document.querySelector('ul#navbar__list')
+    const li = document.createElement('li')
+    const a = document.createElement('a')
+    a.textContent = section.getAttribute('data-nav')
+    a.setAttribute('class', 'menu__link')
 
-    const ul = document.querySelector('ul#navbar__list');
-    const li = document.createElement('li');
-    const a = document.createElement('a');
-    a.textContent = section.getAttribute('data-nav');
-    a.setAttribute('class', 'menu__link');
-
-    a.href = `#${section.id}`;
-    li.appendChild(a);
-    ul.appendChild(li);
+    a.href = `#${section.id}`
+    li.appendChild(a)
+    ul.appendChild(li)
   }
-
-};
-//invoking the buildNavBarLinks function
-buildNavBarLinks();
-
+}
+// invoking the buildNavBarLinks function
+buildNavBarLinks()
 
 // toggle class 'active' to section when the viewport
 
-function toggleActiveClass(section) {
-  const id = section.getAttribute("id");
-  document.querySelector(`#${id}`).classList.toggle("active");
+function toggleActiveClass (section) {
+  const id = section.getAttribute('id')
+  document.querySelector(`#${id}`).classList.toggle('active')
 }
 // calculating when the section is active
-function activeSection() {
-  for (section of sections) {
-    let sectionViewPort = section.getBoundingClientRect();
-    (sectionViewPort.top <= 300 && sectionViewPort.bottom >= 300) && (!section.classList.contains("active")) ? toggleActiveClass(section)
+function activeSection () {
+  for (const section of sections) {
+    const sectionViewPort = section.getBoundingClientRect()
+    // checking if the viewport is within the section
+    sectionViewPort.top <= 200 &&
+    sectionViewPort.bottom >= 200 &&
+    // adding the active class 'active' to section when near the viewport
+    !section.classList.contains('active')
+      ? toggleActiveClass(section)
       : toggleActiveClass(section)
   }
 }
 // event listener to the dom
-window.addEventListener("scroll", activeSection);
+window.addEventListener('scroll', activeSection)
 
+// Scroll to section when Navbar link is clicked
 
-//Scroll to section when Navbar link is clicked
-
-const sectionLinks = document.querySelectorAll('a[href^="#"]');
-for (sectionLink of sectionLinks) {
-  sectionLink.addEventListener("click", function (e) {
-
-    e.preventDefault();
-    document.querySelector(this.getAttribute("href")).scrollIntoView({
-      behavior: "smooth"
-    });
-  });
-};
-
-
-
-
+const sectionLinks = document.querySelectorAll('a[href^="#"]')
+for (const sectionLink of sectionLinks) {
+  sectionLink.addEventListener('click', function (e) {
+    // preventDefault event action when clicked
+    e.preventDefault()
+    // scroll to the section when clicked with smooth scroll
+    document.querySelector(this.getAttribute('href')).scrollIntoView({
+      behavior: 'smooth', block: 'end', inline: 'nearest'
+    })
+  })
+}
 
 /**
  * End Helper Functions
