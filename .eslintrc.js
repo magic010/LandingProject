@@ -1,3 +1,4 @@
+const newLocal = 8
 module.exports = {
   env: {
     browser: true,
@@ -7,7 +8,7 @@ module.exports = {
     'standard'
   ],
   parserOptions: {
-    ecmaVersion: 13,
+    ecmaVersion: newLocal,
     sourceType: 'module'
   },
   rules: {
